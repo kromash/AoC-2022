@@ -37,6 +37,7 @@ public class InputReader {
             Reader streamReader = null;
 
             if (status > 299) {
+                System.out.printf("ERROR %d \n", status);
                 streamReader = new InputStreamReader(conn.getErrorStream());
             } else {
                 streamReader = new InputStreamReader(conn.getInputStream());
