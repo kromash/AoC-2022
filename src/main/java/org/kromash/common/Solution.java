@@ -22,8 +22,8 @@ public abstract class Solution implements SolutionI {
     public abstract String partTwo();
 
     public void solve() {
-        System.out.printf("Day %d part one answer: %s\n", day, partOne());
-        System.out.printf("Day %d part two answer: %s\n", day, partTwo());
+        System.out.printf("Day %d part one answer:\n%s\n", day, partOne());
+        System.out.printf("Day %d part two answer:\n%s\n", day, partTwo());
     }
 
     public List<String> readInputLines() {
