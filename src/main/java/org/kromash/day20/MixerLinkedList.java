@@ -33,7 +33,7 @@ class CircularList<T> {
     }
 
     public void addLast(T element) {
-        Node<T> tmp = new Node<T>(element, head, null);
+        Node<T> tmp = new Node<>(element, head, null);
         if (head != null) {
             tmp.prev = head.prev;
             head.prev.next = tmp;
@@ -104,6 +104,7 @@ public class MixerLinkedList {
     CircularList<Long> list;
     List<Node<Long>> initialNodes;
     List<Integer> idxToAdd = List.of(1000, 2000, 3000);
+
     MixerLinkedList(ArrayList<Long> numbers) {
         list = new CircularList<>();
         for (var v : numbers) {
@@ -115,14 +116,14 @@ public class MixerLinkedList {
     public void mix() {
 
         for (var node : initialNodes) {
-            long steps = 0;
+            long steps;
             if (node.element > 0) {
-                steps = node.element % (long)(list.getSize() - 1);
+                steps = node.element % (long) (list.getSize() - 1);
                 for (int i = 0; i < steps; i++) {
                     list.moveRight(node);
                 }
             } else if (node.element < 0) {
-                steps = Math.abs(node.element) % (long)(list.getSize() - 1);
+                steps = Math.abs(node.element) % (long) (list.getSize() - 1);
                 for (int i = 0; i < steps; i++) {
                     list.moveLeft(node);
                 }
