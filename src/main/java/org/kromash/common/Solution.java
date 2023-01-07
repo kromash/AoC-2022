@@ -1,19 +1,14 @@
 package org.kromash.common;
 
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class Solution implements SolutionI {
     int day;
-    String testData;
     InputReader inputReader;
 
     public Solution(int day) {
-        this(day, null);
-    }
-
-    public Solution(int day, String testData) {
         this.day = day;
-        this.testData = testData;
         inputReader = new InputReader();
     }
 
@@ -27,10 +22,11 @@ public abstract class Solution implements SolutionI {
     }
 
     public List<String> readInputLines() {
-        if (testData != null) {
-            return List.of(testData.split("\n"));
-        }
         return inputReader.readInputLines(day);
-
     }
+
+    public Iterator<String> getInputStream() {
+        return readInputLines().stream().iterator();
+    }
+
 }

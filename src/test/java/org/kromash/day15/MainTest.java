@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 class MainTest {
@@ -31,12 +31,10 @@ class MainTest {
 
     @BeforeEach
     void setUp() {
-        main = mock(Main.class);
+        main = spy(Main.class);
         when(main.readInputLines()).thenReturn(List.of(TEST_DATA.split("\n")));
         when(main.getRowToCheck()).thenReturn(10);
         when(main.getMaxY()).thenReturn(20);
-        when(main.partOne()).thenCallRealMethod();
-        when(main.partTwo()).thenCallRealMethod();
     }
 
     @Test

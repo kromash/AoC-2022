@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class MainTest {
 
@@ -35,10 +34,7 @@ class MainTest {
 
     @BeforeEach
     void setUp() {
-        main = mock(Main.class);
-
-        when(main.partOne()).thenCallRealMethod();
-        when(main.partTwo()).thenCallRealMethod();
+        main = spy(Main.class);
     }
 
     @Test
