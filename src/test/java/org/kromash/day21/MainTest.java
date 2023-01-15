@@ -1,14 +1,18 @@
 package org.kromash.day21;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.kromash.common.SolutionTestBase;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
-class MainTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
+
+class MainTest extends SolutionTestBase {
     static String TEST_DATA = """
             root: pppw + sjmn
             dbpl: 5
@@ -26,12 +30,12 @@ class MainTest {
             drzm: hmdt - zczc
             hmdt: 32
             """;
-
+    @InjectMocks
     Main main;
 
     @BeforeEach
     void setUp() {
-        main = spy(Main.class);
+        MockitoAnnotations.openMocks(this);
         when(main.readInputLines()).thenReturn(List.of(TEST_DATA.split("\n")));
     }
 

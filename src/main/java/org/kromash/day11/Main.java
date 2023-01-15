@@ -2,13 +2,7 @@ package org.kromash.day11;
 
 import org.kromash.common.Solution;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -18,8 +12,9 @@ public class Main extends Solution {
         super(11);
     }
 
+
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
     Map<Integer, Monkey> readMonkeys() {
@@ -64,8 +59,8 @@ public class Main extends Solution {
             int falseMonkey = Integer.parseInt(falseMatcher.group(1));
 
             LinkedList<Long> itemsList = new LinkedList<>(
-                Arrays.asList(items.split(",")).stream().map(e -> Long.parseLong(e.trim())).collect(
-                    Collectors.toList()));
+                    Arrays.asList(items.split(",")).stream().map(e -> Long.parseLong(e.trim())).collect(
+                            Collectors.toList()));
 
             Monkey monkey = new Monkey(monkeyNumber, itemsList, divisible, operation, trueMonkey, falseMonkey);
             monkeys.put(monkeyNumber, monkey);

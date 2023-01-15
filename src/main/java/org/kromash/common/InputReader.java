@@ -3,6 +3,7 @@ package org.kromash.common;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -14,7 +15,7 @@ public class InputReader {
         Properties appProperties = new Properties();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
-        try(InputStream resourceStream = loader.getResourceAsStream("config.properties")) {
+        try (InputStream resourceStream = loader.getResourceAsStream("config.properties")) {
             appProperties.load(resourceStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -38,7 +39,7 @@ public class InputReader {
 
             if (status > 299) {
                 System.out.printf("ERROR %d \n", status);
-                streamReader = new InputStreamReader(conn.getErrorStream());
+                throw new RuntimeException(new String(conn.getErrorStream().readAllBytes(), StandardCharsets.UTF_8));
             } else {
                 streamReader = new InputStreamReader(conn.getInputStream());
             }

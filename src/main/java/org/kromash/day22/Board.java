@@ -2,6 +2,7 @@ package org.kromash.day22;
 
 import com.google.common.collect.Streams;
 import org.javatuples.Pair;
+import org.kromash.common.Direction;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,12 +23,13 @@ class Board {
     ArrayList<Pair<Integer, Integer>> columLimits;
     int width, height;
 
-    Board(Iterator<String> inputStream) {
+    Board(Stream<String> inputStream) {
 
         map = new ArrayList<>();
         width = 0;
-        while (inputStream.hasNext()) {
-            String line = inputStream.next();
+        Iterator<String> inputIterator = inputStream.iterator();
+        while (inputIterator.hasNext()) {
+            String line = inputIterator.next();
 
             if (line.equals("")) {
                 break;
@@ -86,7 +88,7 @@ class Board {
             columLimits.add(new Pair<>(lower, upper));
         }
 
-        String path = inputStream.next();
+        String path = inputIterator.next();
         direction = Direction.RIGHT;
         point = new Point(rowLimits.get(0).getValue0(), 0);
 
@@ -228,59 +230,6 @@ class Board {
         return 1000 * (point.y + 1) + 4 * (point.x + 1) + direction.getValue();
     }
 
-    public enum Direction {
-        RIGHT(0), DOWN(1), LEFT(2), UP(3);
-
-        private final int value;
-
-        Direction(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public Point getMove() {
-            return switch (this) {
-                case RIGHT -> new Point(1, 0);
-                case DOWN -> new Point(0, 1);
-                case LEFT -> new Point(-1, 0);
-                case UP -> new Point(0, -1);
-            };
-        }
-
-        public Direction rotate(Direction rotation) {
-            if (rotation == Direction.LEFT) {
-                return rotate('L');
-            }
-            if (rotation == Direction.RIGHT) {
-                return rotate('R');
-            }
-
-            throw new RuntimeException("Invalid rotation");
-        }
-
-        public Direction opposite() {
-            return this.rotate(Direction.RIGHT).rotate(Direction.RIGHT);
-        }
-
-        public Direction rotate(Character rotation) {
-            assert rotation == 'R' || rotation == 'L';
-            int rotationValue = rotation == 'R' ? 1 : -1;
-            int value = (getValue() + rotationValue) % 4;
-            if (value == -1) {
-                value = 3;
-            }
-            for (Direction direction : values()) {
-                if (direction.getValue() == value) {
-                    return direction;
-                }
-            }
-
-            throw new RuntimeException("Invalid rotation state");
-        }
-    }
 
     public record Move(String move) {
         boolean isRotation() {

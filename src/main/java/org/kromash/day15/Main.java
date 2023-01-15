@@ -15,8 +15,9 @@ public class Main extends Solution {
         super(15);
     }
 
+
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
 

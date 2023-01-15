@@ -2,6 +2,9 @@ package org.kromash.day15;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.kromash.common.SolutionTestBase;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
@@ -9,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-class MainTest {
+class MainTest extends SolutionTestBase {
     static String TEST_DATA = """
             Sensor at x=2, y=18: closest beacon is at x=-2, y=15
             Sensor at x=9, y=16: closest beacon is at x=10, y=16
@@ -27,11 +30,13 @@ class MainTest {
             Sensor at x=20, y=1: closest beacon is at x=15, y=3
             """;
 
+    @InjectMocks
     Main main;
 
     @BeforeEach
     void setUp() {
         main = spy(Main.class);
+        MockitoAnnotations.openMocks(this);
         when(main.readInputLines()).thenReturn(List.of(TEST_DATA.split("\n")));
         when(main.getRowToCheck()).thenReturn(10);
         when(main.getMaxY()).thenReturn(20);

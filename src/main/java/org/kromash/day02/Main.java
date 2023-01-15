@@ -9,7 +9,7 @@ public class Main extends Solution {
     }
 
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
     public String partOne() {

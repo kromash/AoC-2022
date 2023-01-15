@@ -10,11 +10,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Valve {
+    static final Pattern VALVE_PATTERN = Pattern.compile(
+            "Valve ([A-Z]{2}) has flow rate=(\\d+); tunnels? leads? to valves? ([ ,A-Z]*)");
     String name;
     int rate;
     Set<String> tunnels;
-    static final Pattern VALVE_PATTERN = Pattern.compile(
-        "Valve ([A-Z]{2}) has flow rate=(\\d+); tunnels? leads? to valves? ([ ,A-Z]*)");
 
     Valve(String name, int rate, String[] tunnels) {
         this.name = name;
@@ -27,9 +27,9 @@ class Valve {
 
         if (matcher.find()) {
             return new Valve(
-                matcher.group(1),
-                Integer.parseInt(matcher.group(2)),
-                matcher.group(3).split(", ")
+                    matcher.group(1),
+                    Integer.parseInt(matcher.group(2)),
+                    matcher.group(3).split(", ")
             );
         }
         return null;
@@ -158,8 +158,9 @@ public class Main extends Solution {
         super(16);
     }
 
+
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
     Map<String, Valve> readValveMap() {

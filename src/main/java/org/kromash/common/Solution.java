@@ -1,15 +1,29 @@
 package org.kromash.common;
 
-import java.util.Iterator;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 import java.util.List;
+import java.util.stream.Stream;
 
 public abstract class Solution implements SolutionI {
+    static Injector injector;
     int day;
+    @Inject
     InputReader inputReader;
 
     public Solution(int day) {
         this.day = day;
-        inputReader = new InputReader();
+    }
+
+    protected static void initInjector() {
+        injector = Guice.createInjector(new BasicModule());
+    }
+
+    public static <T extends Solution> void solve(Class<T> cls) {
+        initInjector();
+        injector.getInstance(cls).solve();
     }
 
     public abstract String partOne();
@@ -25,8 +39,8 @@ public abstract class Solution implements SolutionI {
         return inputReader.readInputLines(day);
     }
 
-    public Iterator<String> getInputStream() {
-        return readInputLines().stream().iterator();
+    public Stream<String> getInputStream() {
+        return readInputLines().stream();
     }
 
 }

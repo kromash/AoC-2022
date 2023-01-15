@@ -22,8 +22,9 @@ public class Main extends Solution {
         super(12);
     }
 
+
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
 

@@ -1,16 +1,18 @@
 package org.kromash.day22;
 
+import org.kromash.common.Direction;
+
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class BoardCube extends Board {
 
     HashMap<Point, Side> sides = new HashMap<>();
 
-    BoardCube(Iterator<String> inputStream) {
+    BoardCube(Stream<String> inputStream) {
         super(inputStream);
         calculateSides();
     }

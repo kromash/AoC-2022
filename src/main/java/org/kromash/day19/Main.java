@@ -3,14 +3,11 @@ package org.kromash.day19;
 import org.javatuples.Triplet;
 import org.kromash.common.Solution;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.PriorityQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 class Resources {
     public int ore, clay, obsidian, geode;
@@ -45,7 +42,7 @@ class Resources {
             return false;
         }
         return ore == resources.ore && clay == resources.clay && obsidian == resources.obsidian &&
-            geode == resources.geode;
+                geode == resources.geode;
     }
 
     @Override
@@ -56,38 +53,38 @@ class Resources {
     @Override
     public String toString() {
         return "Resources{" +
-            "ore=" + ore +
-            ", clay=" + clay +
-            ", obsidian=" + obsidian +
-            ", geode=" + geode +
-            '}';
+                "ore=" + ore +
+                ", clay=" + clay +
+                ", obsidian=" + obsidian +
+                ", geode=" + geode +
+                '}';
     }
 
     public Resources add(Resources resources) {
         return new Resources(this.ore + resources.ore,
-            this.clay + resources.clay,
-            this.obsidian + resources.obsidian,
-            this.geode + resources.geode);
+                this.clay + resources.clay,
+                this.obsidian + resources.obsidian,
+                this.geode + resources.geode);
     }
 
     public Resources subtract(Resources resources) {
         return new Resources(this.ore - resources.ore,
-            this.clay - resources.clay,
-            this.obsidian - resources.obsidian,
-            this.geode - resources.geode);
+                this.clay - resources.clay,
+                this.obsidian - resources.obsidian,
+                this.geode - resources.geode);
     }
 
     public boolean hasEnough(Resources required) {
         return this.ore >= required.ore && this.clay >= required.clay && this.obsidian >= required.obsidian &&
-            this.geode >= required.geode;
+                this.geode >= required.geode;
     }
 }
 
 class Blueprint {
     static Pattern BLUEPRINT_PATTERN = Pattern.compile(
-        "Blueprint (\\d+): Each ore robot costs (\\d+) ore. Each clay robot costs (\\d+) ore. " +
-            "Each obsidian robot costs (\\d+) ore and (\\d+)" +
-            " clay. Each geode robot costs (\\d+) ore and (\\d+) obsidian.");
+            "Blueprint (\\d+): Each ore robot costs (\\d+) ore. Each clay robot costs (\\d+) ore. " +
+                    "Each obsidian robot costs (\\d+) ore and (\\d+)" +
+                    " clay. Each geode robot costs (\\d+) ore and (\\d+) obsidian.");
     int id;
     Resources oreRobot, clayRobot, obsidianRobot, geodeRobot;
     Resources robots;
@@ -111,7 +108,7 @@ class Blueprint {
     }
 
     int maxGeodes(int timeLeft, Resources currentResources, Resources robots) {
-        if (timeLeft == 0 || currentResources.geode + timeLeft*(robots.geode + timeLeft/2+1) < maxGeodes) {
+        if (timeLeft == 0 || currentResources.geode + timeLeft * (robots.geode + timeLeft / 2 + 1) < maxGeodes) {
             if (currentResources.geode > maxGeodes) {
                 maxGeodes = currentResources.geode;
                 System.out.println(maxGeodes);
@@ -120,7 +117,6 @@ class Blueprint {
         }
         var key = new Triplet<>(timeLeft, currentResources, robots);
         if (memo.containsKey(key)) {
-            //System.out.println("hit" +  key);
             return memo.get(key);
         }
 
@@ -129,25 +125,26 @@ class Blueprint {
         if (currentResources.hasEnough(geodeRobot)) {
             robots.geode += 1;
             maxGeodesLocal = Math.max(maxGeodes(timeLeft - 1, newResources.subtract(geodeRobot), robots),
-                maxGeodesLocal);
+                    maxGeodesLocal);
             robots.geode -= 1;
         }
 
         if (currentResources.hasEnough(obsidianRobot) && currentResources.obsidian < (timeLeft * geodeRobot.obsidian)) {
             robots.obsidian += 1;
             maxGeodesLocal = Math.max(maxGeodes(timeLeft - 1, newResources.subtract(obsidianRobot), robots),
-                maxGeodesLocal);
+                    maxGeodesLocal);
             robots.obsidian -= 1;
         }
 
         if (currentResources.hasEnough(clayRobot) && currentResources.clay < (timeLeft * obsidianRobot.clay)) {
             robots.clay += 1;
             maxGeodesLocal = Math.max(maxGeodes(timeLeft - 1, newResources.subtract(clayRobot), robots),
-                maxGeodesLocal);
+                    maxGeodesLocal);
             robots.clay -= 1;
         }
 
-        if (currentResources.hasEnough(oreRobot) && currentResources.ore + (robots.ore * timeLeft) < timeLeft * maxOreRequired) {
+        if (currentResources.hasEnough(
+                oreRobot) && currentResources.ore + (robots.ore * timeLeft) < timeLeft * maxOreRequired) {
             robots.ore += 1;
             maxGeodesLocal = Math.max(maxGeodes(timeLeft - 1, newResources.subtract(oreRobot), robots), maxGeodesLocal);
             robots.ore -= 1;
@@ -163,7 +160,7 @@ class Blueprint {
         Resources robots = new Resources(1, 0, 0, 0);
 
         maxGeodes = 0;
-        maxOreRequired = Math.max(Math.max(obsidianRobot.ore, clayRobot.ore),  geodeRobot.ore);
+        maxOreRequired = Math.max(Math.max(obsidianRobot.ore, clayRobot.ore), geodeRobot.ore);
         memo = new HashMap<>();
 
         maxGeodes(minutes, resources, robots);
@@ -178,12 +175,12 @@ class Blueprint {
     @Override
     public String toString() {
         return "Blueprint{" +
-            "num=" + id +
-            "\noreRobot=" + oreRobot +
-            "\nclayRobot=" + clayRobot +
-            "\nobsidianRobot=" + obsidianRobot +
-            "\ngeodeRobot=" + geodeRobot +
-            '}';
+                "num=" + id +
+                "\noreRobot=" + oreRobot +
+                "\nclayRobot=" + clayRobot +
+                "\nobsidianRobot=" + obsidianRobot +
+                "\ngeodeRobot=" + geodeRobot +
+                '}';
     }
 }
 
@@ -192,8 +189,9 @@ public class Main extends Solution {
         super(19);
     }
 
+
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
     public String partOne() {

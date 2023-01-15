@@ -12,8 +12,9 @@ public class Main extends Solution {
         super(21);
     }
 
+
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
     public String partOne() {
@@ -70,7 +71,7 @@ public class Main extends Solution {
 
                     if (operationMatcher.find()) {
                         node = new Node(name, operationMatcher.group(1), operationMatcher.group(3),
-                            operationMatcher.group(2), null);
+                                operationMatcher.group(2), null);
                     }
                 }
             }
@@ -123,13 +124,15 @@ public class Main extends Solution {
         boolean isHuman(String nodeName) {
             return nodeName.equals("humn");
         }
+
         Long getValueOrNull(String nodeName) {
-            if(hasHuman(nodeName)) {
+            if (hasHuman(nodeName)) {
                 return null;
             }
 
             return getValue(nodeName);
         }
+
         long whatToYell(String nodeName, long needed) {
             if (isHuman(nodeName)) {
                 return needed;
@@ -168,6 +171,7 @@ public class Main extends Solution {
             }
             throw new RuntimeException("Invalid operation");
         }
+
         long whatToYell() {
             Node root = map.get("root");
             Long left = getValueOrNull(root.left);

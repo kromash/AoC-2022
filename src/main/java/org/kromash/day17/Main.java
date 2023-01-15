@@ -5,7 +5,6 @@ import org.javatuples.Pair;
 import org.kromash.common.Solution;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,7 +14,7 @@ public class Main extends Solution {
     }
 
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
     public String partOne() {
@@ -42,7 +41,7 @@ public class Main extends Solution {
 
         Chamber(String moves) {
             SHAPES = new String[][]{new String[]{"####"}, new String[]{".#.", "###", ".#."}, new String[]{"..#", "." +
-                ".#", "###"}, new String[]{"#", "#", "#", "#"}, new String[]{"##", "##"}};
+                    ".#", "###"}, new String[]{"#", "#", "#", "#"}, new String[]{"##", "##"}};
             this.moves = moves;
             chamber = new ArrayList<>();
             maxHeight = 0;
@@ -68,7 +67,7 @@ public class Main extends Solution {
             }
 
             int patternLength = SHAPES.length;
-            for (; patternLength < initialBlocks/2; patternLength++) {
+            for (; patternLength < initialBlocks / 2; patternLength++) {
                 boolean found = true;
                 for (int i = 0; i < patternLength; ++i) {
                     if (!memo.get(blocksOffset + i).equals(memo.get(blocksOffset + patternLength + i))) {
@@ -78,15 +77,15 @@ public class Main extends Solution {
                 }
 
                 if (found) {
-                    System.out.println("Pattern: " +  patternLength);
+                    System.out.println("Pattern: " + patternLength);
                     break;
                 }
             }
 
-            long patternHeight = heights.get(blocksOffset+patternLength) - heights.get(blocksOffset);
+            long patternHeight = heights.get(blocksOffset + patternLength) - heights.get(blocksOffset);
             long rest = (blocks - blocksOffset) % patternLength;
             long offsetPlusRestHeight = heights.get((int) (blocksOffset + rest) - 1);
-            long patternsCount = (blocks-blocksOffset) / patternLength;
+            long patternsCount = (blocks - blocksOffset) / patternLength;
 
             return offsetPlusRestHeight + patternHeight * patternsCount;
         }

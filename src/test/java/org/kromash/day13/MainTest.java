@@ -2,6 +2,9 @@ package org.kromash.day13;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.kromash.common.SolutionTestBase;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
@@ -9,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-class MainTest {
+class MainTest extends SolutionTestBase {
     static String TEST_DATA = """
             [1,1,3,1,1]
             [1,1,5,1,1]
@@ -36,11 +39,12 @@ class MainTest {
             [1,[2,[3,[4,[5,6,0]]]],8,9]
             """;
 
+    @InjectMocks
     Main main;
 
     @BeforeEach
     void setUp() {
-        main = spy(Main.class);
+        MockitoAnnotations.openMocks(this);
         when(main.readInputLines()).thenReturn(List.of(TEST_DATA.split("\n")));
     }
 

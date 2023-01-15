@@ -2,12 +2,16 @@ package org.kromash.day10;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.kromash.common.SolutionTestBase;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-class MainTest {
+class MainTest extends SolutionTestBase {
     //<editor-fold desc="TEST_DATA">
     static String TEST_DATA = """
             addx 15
@@ -159,11 +163,12 @@ class MainTest {
             """;
     //</editor-fold>
 
+    @InjectMocks
     Main main;
 
     @BeforeEach
     void setUp() {
-        main = spy(Main.class);
+        MockitoAnnotations.openMocks(this);
         when(main.readInputLines()).thenReturn(List.of(TEST_DATA.split("\n")));
     }
 

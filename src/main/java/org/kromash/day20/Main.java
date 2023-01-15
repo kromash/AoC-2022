@@ -9,8 +9,9 @@ public class Main extends Solution {
         super(20);
     }
 
+
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
     public String partOne() {

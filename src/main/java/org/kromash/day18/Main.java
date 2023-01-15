@@ -1,15 +1,6 @@
 package org.kromash.day18;
 
-import org.javatuples.Triplet;
 import org.kromash.common.Solution;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Set;
 
 public class Main extends Solution {
 
@@ -17,8 +8,9 @@ public class Main extends Solution {
         super(18);
     }
 
+
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
     public String partOne() {

@@ -18,8 +18,9 @@ public class Main extends Solution {
         sb = new StringBuilder();
     }
 
+
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
     public String partOne() {
@@ -55,7 +56,7 @@ public class Main extends Solution {
 
     private void addCycleCRT() {
         cycle += 1;
-        int pixelPos = (cycle-1) % 40;
+        int pixelPos = (cycle - 1) % 40;
 
         if (pixelPos >= r - 1 && pixelPos <= r + 1) {
             sb.append('#');

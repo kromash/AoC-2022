@@ -14,8 +14,9 @@ public class Main extends Solution {
         super(14);
     }
 
+
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
     ArrayList<ArrayList<Point>> loadRocks() {

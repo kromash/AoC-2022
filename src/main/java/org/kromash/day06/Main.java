@@ -10,18 +10,19 @@ public class Main extends Solution {
         super(6);
     }
 
+
     public static void main(String[] args) {
-        new Main().solve();
+        solve(Main.class);
     }
 
     public String partOne() {
-        int result =  findMarker(readInputLines().get(0), 4);
+        int result = findMarker(readInputLines().get(0), 4);
 
         return String.valueOf(result);
     }
 
     public String partTwo() {
-        int result =  findMarker(readInputLines().get(0), 14);
+        int result = findMarker(readInputLines().get(0), 14);
 
         return String.valueOf(result);
     }
